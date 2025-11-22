@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TapAssets</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="app">
+    <div>
+      <h1>TapAssets</h1>
+      <div class="subtitle">Жми по кнопке, улучшай доход, покупай автокликер 💰</div>
+    </div>
+
+    <div class="stats">
+      <div class="stats-row">
+        <span>Монеты</span>
+        <span class="value" id="coins">0</span>
+      </div>
+      <div class="stats-row">
+        <span>За клик</span>
+        <span class="value" id="perClick">1</span>
+      </div>
+      <div class="stats-row">
+        <span>Автоклик</span>
+        <span class="value"><span id="autoRate">0</span> / сек</span>
+      </div>
+    </div>
+
+    <button id="clickBtn">КЛИК!</button>
+
+    <div class="shop-title">Магазин улучшений</div>
+    <div class="shop" id="shop"></div>
+
+    <div class="footer">Прогресс сохраняется автоматически 📦</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
