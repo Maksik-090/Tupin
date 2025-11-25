@@ -148,3 +148,26 @@ setInterval(() => {
 loadState();
 initMainButton();
 updateAll(false);
+
+
+
+
+if (tg) {
+  tg.onEvent("data", function(raw) {
+    try {
+      const data = JSON.parse(raw);
+
+      if (data.type === "donate_add_clicks") {
+        const addValue = data.value;
+
+        state.perClick += addValue;
+        updateAll();
+
+        alert(`🔥 Покупка успешно применена! +${addValue} к силе клика`);
+      }
+
+    } catch (e) {
+      console.error("Ошибка обработки данных WebApp:", e);
+    }
+  });
+}
