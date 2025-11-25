@@ -75,7 +75,6 @@ def process_buy(call):
         invoice_payload=f"{call.data}:{per_click_add}"
     )
 
-
 # =========================
 #   ПОДТВЕРЖДЕНИЕ ОПЛАТЫ
 # =========================
