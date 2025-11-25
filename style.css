@@ -28,7 +28,29 @@ body {
   gap: 16px;
 }
 
-h1 {
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.back-btn:active {
+  background: rgba(255,255,255,0.2);
+}
+
+h1, h2 {
   font-size: 22px;
   text-align: center;
   margin-bottom: 4px;
@@ -65,23 +87,69 @@ h1 {
   font-size: 28px;
 }
 
-#clickBtn {
+/* Стили для кнопок навигации */
+.nav-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 4px;
-  font-size: 22px;
-  font-weight: 700;
-  padding: 18px 12px;
+}
+
+.nav-btn {
+  border: none;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.nav-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.4);
+}
+
+.nav-btn:nth-child(2) {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+}
+
+.nav-btn:nth-child(2):active {
+  box-shadow: 0 3px 12px rgba(245, 87, 108, 0.4);
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+/* Увеличенная кнопка клика */
+.big-click-btn {
+  margin-top: 12px;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 24px 16px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, #ffb300, #ff6f00);
   color: #1b1300;
-  box-shadow: 0 10px 24px rgba(255, 145, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(255, 145, 0, 0.5);
   transition: transform 0.08s ease, box-shadow 0.08s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#clickBtn:active {
-  transform: translateY(2px) scale(0.98);
-  box-shadow: 0 4px 14px rgba(255, 145, 0, 0.35);
+.big-click-btn:active {
+  transform: translateY(3px) scale(0.97);
+  box-shadow: 0 6px 18px rgba(255, 145, 0, 0.4);
 }
 
 .shop-title {
@@ -152,6 +220,104 @@ h1 {
   opacity: 0.4;
   cursor: default;
   transform: none;
+}
+
+/* Стили для карточек */
+.cards-shop, .my-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.card-item {
+  background: rgba(0,0,0,0.4);
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.card-item.common { border-color: #b0b0b0; }
+.card-item.rare { border-color: #4caf50; }
+.card-item.epic { border-color: #9c27b0; }
+.card-item.legendary { border-color: #ff9800; }
+.card-item.mythic { border-color: #ffeb3b; }
+.card-item.cosmic { border-color: #00bcd4; }
+.card-item.dragon { border-color: #f44336; }
+.card-item.divine { border-color: #e91e63; }
+
+.card-item.owned {
+  background: rgba(0,0,0,0.6);
+}
+
+.card-image {
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.card-desc {
+  font-size: 12px;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.card-cost {
+  font-size: 12px;
+  color: #ffb300;
+  font-weight: 600;
+}
+
+.owned-badge {
+  font-size: 11px;
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.card-buy-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  color: white;
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.card-buy-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0.7;
+  font-size: 14px;
 }
 
 .footer {
