@@ -151,11 +151,11 @@ updateAll(false);
 
 
 
-
 if (tg) {
-  tg.onEvent("data", function(raw) {
+  tg.onEvent("web_app_data", function(raw) {
+
     try {
-      const data = JSON.parse(raw);
+      const data = JSON.parse(raw.data);
 
       if (data.type === "donate_add_clicks") {
         const addValue = data.value;
@@ -163,11 +163,11 @@ if (tg) {
         state.perClick += addValue;
         updateAll();
 
-        alert(`🔥 Покупка успешно применена! +${addValue} к силе клика`);
+        alert(`🔥 Донат применён! +${addValue} к силе клика`);
       }
 
     } catch (e) {
-      console.error("Ошибка обработки данных WebApp:", e);
+      console.error("Ошибка обработки WebAppData:", e);
     }
   });
 }
