@@ -4,7 +4,7 @@ if (tg) {
   tg.ready();
 }
 
-const saveKey = "tapassets_save_v1";
+const saveKey = "tapassets_save_v2";
 
 const defaultState = {
   coins: 0,
@@ -17,10 +17,38 @@ const defaultState = {
     { id: "ac1", name: "Автоклик +1", desc: "+1 монета каждый секунду.", baseCost: 80, level: 0, type: "auto", amount: 1 },
     { id: "ac5", name: "Автоклик +5", desc: "Пассивный доход растёт.", baseCost: 400, level: 0, type: "auto", amount: 5 },
     { id: "ac10", name: "Автоклик +10", desc: "Ферма монет почти без кликов.", baseCost: 1500, level: 0, type: "auto", amount: 10 }
+  ],
+  cards: [
+    { id: "card1", name: "Редкая карта", desc: "Первая карта в коллекции", image: "🃏", cost: 50, owned: false, rarity: "common" },
+    { id: "card2", name: "Эпическая карта", desc: "Очень ценная находка", image: "🦄", cost: 150, owned: false, rarity: "rare" },
+    { id: "card3", name: "Легендарная карта", desc: "Невероятная редкость!", image: "🐉", cost: 500, owned: false, rarity: "epic" },
+    { id: "card4", name: "Мифическая карта", desc: "Мечта коллекционера", image: "🌟", cost: 1200, owned: false, rarity: "legendary" },
+    { id: "card5", name: "Золотая карта", desc: "Сияет как солнце", image: "⭐", cost: 2500, owned: false, rarity: "mythic" },
+    { id: "card6", name: "Космическая карта", desc: "Пришелец из других миров", image: "👽", cost: 5000, owned: false, rarity: "cosmic" },
+    { id: "card7", name: "Драконья карта", desc: "Дыхание огня", image: "🐲", cost: 8000, owned: false, rarity: "dragon" },
+    { id: "card8", name: "Божественная карта", desc: "Власть над всем", image: "👑", cost: 15000, owned: false, rarity: "divine" }
   ]
 };
 
 let state = structuredClone(defaultState);
+
+// Элементы интерфейса
+const coinsEl = document.getElementById("coins");
+const perClickEl = document.getElementById("perClick");
+const autoRateEl = document.getElementById("autoRate");
+const clickBtn = document.getElementById("clickBtn");
+const shopEl = document.getElementById("shop");
+const cardsShopBtn = document.getElementById("cardsShopBtn");
+const myCardsBtn = document.getElementById("myCardsBtn");
+
+// Навигация
+cardsShopBtn.addEventListener("click", () => {
+  window.location.href = 'cards-shop.html';
+});
+
+myCardsBtn.addEventListener("click", () => {
+  window.location.href = 'my-cards.html';
+});
 
 function loadState() {
   try {
@@ -28,11 +56,21 @@ function loadState() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     state = Object.assign({}, defaultState, saved);
+    
+    // Восстанавливаем улучшения
     if (!Array.isArray(state.upgrades)) {
       state.upgrades = structuredClone(defaultState.upgrades);
     } else {
       const map = new Map(defaultState.upgrades.map(u => [u.id, u]));
       state.upgrades = state.upgrades.map(u => Object.assign({}, map.get(u.id) || {}, u));
+    }
+    
+    // Восстанавливаем карточки
+    if (!Array.isArray(state.cards)) {
+      state.cards = structuredClone(defaultState.cards);
+    } else {
+      const map = new Map(defaultState.cards.map(c => [c.id, c]));
+      state.cards = state.cards.map(c => Object.assign({}, map.get(c.id) || {}, c));
     }
   } catch (e) {
     console.error("Ошибка чтения сохранения:", e);
@@ -47,12 +85,6 @@ function saveState() {
     console.error("Ошибка сохранения:", e);
   }
 }
-
-const coinsEl = document.getElementById("coins");
-const perClickEl = document.getElementById("perClick");
-const autoRateEl = document.getElementById("autoRate");
-const clickBtn = document.getElementById("clickBtn");
-const shopEl = document.getElementById("shop");
 
 function getUpgradeCost(upg) {
   return Math.floor(upg.baseCost * Math.pow(1.5, upg.level));
@@ -128,7 +160,8 @@ function initMainButton() {
       coins: Math.floor(state.coins),
       perClick: state.perClick,
       autoRate: state.autoRate,
-      upgrades: state.upgrades.map(u => ({ id: u.id, level: u.level }))
+      upgrades: state.upgrades.map(u => ({ id: u.id, level: u.level })),
+      cards: state.cards.filter(c => c.owned).map(c => ({ id: c.id }))
     }));
   });
 }
@@ -145,6 +178,7 @@ setInterval(() => {
   }
 }, 1000);
 
+// Инициализация
 loadState();
 initMainButton();
 updateAll(false);
