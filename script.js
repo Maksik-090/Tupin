@@ -1,3 +1,6 @@
+localStorage.clear();
+
+
 const tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
 if (tg) {
   tg.expand();
