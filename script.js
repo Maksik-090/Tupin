@@ -151,6 +151,34 @@ updateAll(false);
 
 
 
+
+
+if (tg) {
+  tg.onEvent("web_app_data", function(raw) {
+    console.log("RAW EVENT:", raw);
+
+    try {
+      console.log("RAW DATA:", raw.data);
+
+      const data = JSON.parse(raw.data);
+      console.log("PARSED DATA:", data);
+
+      if (data.type === "donate_add_clicks") {
+        const addValue = data.value;
+
+        console.log("ADDING VALUE:", addValue);
+
+        state.perClick += addValue;
+        updateAll();
+
+        alert(`🔥 Донат применён! +${addValue} к силе клика`);
+      }
+
+    } catch (e) {
+      console.error("Ошибка обработки WebAppData:", e);
+    }
+  });
+}
 if (tg) {
   tg.onEvent("web_app_data", function(raw) {
 
